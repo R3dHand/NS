@@ -1,0 +1,32 @@
+<mat-card>
+    <div fxLayout="row wrap" fxLayoutGap="5px">
+        <div fxFlex>
+            <div>
+                <!-- currentPage totalPages -->
+                Page: {{ currentPage }} of {{ totalPages }}
+            </div>
+        </div>
+        <div fxFlex="0 0 auto">
+
+            <!-- FIRST -->
+            <button mat-button (click)="first()"  *ngIf=" currentPage > 2">
+                <mat-icon>first_page</mat-icon>
+            </button>
+
+            <!-- NEXT -->
+            <button mat-button (click)="previous()"  *ngIf="currentPage !== 1">
+                <mat-icon>navigate_before</mat-icon>
+            </button>
+
+            <!-- PREVIOUS -->
+            <button mat-button (click)="next()" *ngIf="currentPage !== totalPages">
+                <mat-icon>navigate_next</mat-icon>
+            </button>
+                
+            <!-- Last -->
+            <button mat-button (click)="last()">
+                <mat-icon>last_page</mat-icon>
+            </button>
+        </div>
+    </div>
+</mat-card>

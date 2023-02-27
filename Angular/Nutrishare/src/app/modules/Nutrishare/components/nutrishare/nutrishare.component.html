@@ -1,0 +1,12 @@
+<div>
+    <app-navbar></app-navbar>
+    <div fxLayout="row" fxLayoutAlign="end">
+        <app-search-filter id="searchFilter"
+                        [hidden]="searchFilterToggle">
+        </app-search-filter>
+    </div>
+</div>
+
+<div>
+    <router-outlet></router-outlet>
+</div>

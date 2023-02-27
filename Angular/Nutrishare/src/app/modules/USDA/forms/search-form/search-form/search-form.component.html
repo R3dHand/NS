@@ -1,0 +1,27 @@
+<form [formGroup]="searchFormGroup">    
+        <div fxLayout="row" fxLayoutAlign="none center">
+            <div fxFlex>
+                <mat-form-field fxFlex="grow">
+                    <textarea matInput
+                              cdkTextareaAutosize
+                              #autosize="cdkTextareaAutosize"
+                              placeholder="Search"
+                              formControlName="query"
+                              autocomplete="off"
+                              class="search-form"></textarea>
+                </mat-form-field>
+            </div>
+            <div >
+                <button mat-icon-button
+                        (click)="search(searchFormGroup.value)">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </div>
+            <div fxFlex="nogrow">
+                <button mat-icon-button
+                (click)="toggleSearchFilter()">
+                <mat-icon>filter_alt</mat-icon>
+                </button>
+            </div>
+        </div>
+</form>

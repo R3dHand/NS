@@ -1,0 +1,75 @@
+<div>
+    <div>
+        <form [formGroup]="filterFormGroup">
+            <mat-card>
+                <mat-card-content>
+                    <!-- Extra Filter Options -->
+                    <div fxLayout="row" fxLayoutAlign="space-around">
+                        <mat-form-field>
+                            <input type="number"
+                                matInput
+                                placeholder="Page Size"
+                                min="1"
+                                max="200"
+                                formControlName="pageSize">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input type="number" matInput placeholder="Page Number" formControlName="pageNumber">
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row">
+                        <mat-form-field>
+                            <mat-label>Sort By</mat-label>
+                            <mat-select formControlName="selectedSortBy">
+                                <mat-option *ngFor="let selection of sortBy" [value]="selection">{{selection}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                
+                        <mat-form-field>
+                            <mat-label>Sort Order</mat-label>
+                            <mat-select formControlName="selectedSortOrder">
+                                <mat-option *ngFor="let direction of sortOrder" [value]="direction">{{direction}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row">
+                        <mat-form-field>
+                            <input type="date" matInput placeholder="Start Date" formControlName="startDate">
+                        </mat-form-field>
+                
+                        <mat-form-field>
+                            <input type="date" matInput placeholder="End Date" formControlName="endDate">
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row">
+                        <mat-form-field>
+                            <mat-label>Data Types</mat-label>
+                            <mat-select formControlName="selectedDataTypes"
+                                        multiple>
+                                <mat-option *ngFor="let type of dataTypes" [value]="type">{{type}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Trade Channels</mat-label>
+                            <mat-select formControlName="selectedTradeChannels" multiple>
+                                <mat-option *ngFor="let channel of tradeChannels" [value]="channel" >{{channel}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row">
+                        <mat-form-field>
+                            <input type="text" matInput placeholder="Brand Owner" formControlName="brandOwner">
+                        </mat-form-field>
+                    </div>
+
+                </mat-card-content>
+                <!-- <mat-progress-bar mode="indeterminate" animationEnd></mat-progress-bar> -->
+            </mat-card>
+        </form>
+    </div>  
+</div>

@@ -1,0 +1,39 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+// Define light theme
+$nutrishare-light-primary: mat.define-palette(mat.$indigo-palette);
+$nutrishare-light-accent: mat.define-palette(mat.$pink-palette);
+$nutrishare-light-warn: mat.define-palette(mat.$red-palette);
+$nutrishare-light-theme: mat.define-light-theme(
+  $nutrishare-light-primary,
+  $nutrishare-light-accent,
+  $nutrishare-light-warn
+);
+@include mat.all-component-themes($nutrishare-light-theme);
+
+
+// apply dark theme
+.nutrishare-dark {
+  // Define a dark theme
+  $nutrishare-dark-primary: mat.define-palette(mat.$pink-palette, 700);
+  $nutrishare-dark-accent: mat.define-palette(mat.$green-palette);
+  $nutrishare-dark-warn: mat.define-palette(mat.$red-palette);
+  $nutrishare-dark-theme: mat.define-dark-theme(
+    $nutrishare-dark-primary,
+    $nutrishare-dark-accent,
+    $nutrishare-dark-warn
+  );
+    @include mat.all-component-themes($nutrishare-dark-theme);
+}
+
+
+// Angular Materials modifications
+
+mat-card {
+  border-radius: 0px !important;
+}
+
+mat-expansion-panel {
+  border-radius: 0px !important;
+}
