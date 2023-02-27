@@ -1,4 +1,4 @@
-﻿using Nustrishare.API.USDA.Models.Search;
+﻿using Nustrishare.USDA.DTO.Search;
 using Newtonsoft.Json;
 using System.Net.Http;
 

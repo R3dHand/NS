@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Nustrishare.API.USDA.Models.Search;
 using Nustrishare.API.USDA.Services.HttpClientService;
+using Nustrishare.USDA.DTO.Search;
 
 namespace Nustrishare.API.USDA.Controllers
 {
