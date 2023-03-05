@@ -11,9 +11,7 @@ import { UsdaSearchService } from '../../../services/search/usda-search.service'
 
 export class SearchFormComponent  {
   searchFilterToggle: boolean;
-
   foodSearchCriteria: FoodSearchCriteriaModel;
-
   searchFormGroup = new FormGroup({
     //try taking this out of formGroup
     query: new FormControl<string>('')
@@ -37,7 +35,7 @@ export class SearchFormComponent  {
       this.searchFilterToggle = value;
     })
   }
-  search(searchForm) {
+  search() {
     this.usdaSearchService.search(this.foodSearchCriteria);
     this.usdaSearchService.setSearchFilterToggle(true);
   }

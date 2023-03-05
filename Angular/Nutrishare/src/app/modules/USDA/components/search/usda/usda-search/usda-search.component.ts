@@ -20,9 +20,11 @@ export class UsdaSearchComponent implements OnInit {
 
   ngOnInit() {
     this.usdaSearchService.searchResultSubject.subscribe(response => {
+      debugger
       this.searchResult = response;
     });
     this.usdaSearchService.foodSearchCriteriaSubject.subscribe(response => {
+      debugger
       this.foodSearchCriteria = response;
     });
   }

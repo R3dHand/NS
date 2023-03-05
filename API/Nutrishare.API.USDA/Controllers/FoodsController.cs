@@ -6,7 +6,7 @@ namespace Nustrishare.API.USDA.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
-	public class FoodsController : ControllerBase
+	public class FoodsController : BaseController
 	{
         private readonly IUsdaHttpClientService _usdaHttpClientService;
         public FoodsController(IUsdaHttpClientService usdaHttpClientService)
@@ -16,9 +16,10 @@ namespace Nustrishare.API.USDA.Controllers
         ///<summary>Search the USDA Database</summary>
         ///<param name="foodSearchCriteria"></param>
         [HttpPost("search")]
-        public SearchResultModel Search([FromBody] FoodSearchCriteriaModel foodSearchCriteria)
+        public IActionResult Search([FromBody] FoodSearchCriteriaModel foodSearchCriteria)
         {
-            return _usdaHttpClientService.Search(foodSearchCriteria).Result;
+            var response = _usdaHttpClientService.Search(foodSearchCriteria).Result;
+            return HandleStandardApiResponse(response);
         }
     }
 }
