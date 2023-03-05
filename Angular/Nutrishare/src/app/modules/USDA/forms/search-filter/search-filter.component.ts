@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FoodSearchCriteriaModel } from '../../models/Search/FoodSearchCriteriaModel';
 import { UsdaSearchService } from '../../services/search/usda-search.service';
+import { UsdaStoreService } from '../../ComponentStore/services/usda-store.service';
 
 @Component({
   selector: 'app-search-filter',
@@ -11,8 +12,14 @@ import { UsdaSearchService } from '../../services/search/usda-search.service';
 
 export class SearchFilterComponent implements OnInit {
   hidden: boolean = true;
-  foodSearchCriteria: FoodSearchCriteriaModel;
   searchFilterToggle: boolean;
+
+    // selectors
+  foodSearchCriteria: FoodSearchCriteriaModel;
+  foodSearchCriteria$ = this.usdaStoreService.foodSearchCriteria$.subscribe(res => {
+    debugger
+    this.foodSearchCriteria = res;
+  });
 
   filterFormGroup = new FormGroup({
     selectedDataTypes: new FormControl<string[]>([]),
@@ -53,56 +60,53 @@ export class SearchFilterComponent implements OnInit {
     'ONLINE',
     'VENDING'
   ]
-  constructor(private usdaSearchService: UsdaSearchService) { }
+  constructor(
+    private usdaSearchService: UsdaSearchService,
+    private usdaStoreService: UsdaStoreService
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.initSubscriptions();
   }
 
   initSubscriptions() {
-    this.usdaSearchService.searchFilterToggleSubject.subscribe(response => {
-      this.searchFilterToggle = response;
-    });
-
-    this.usdaSearchService.foodSearchCriteriaSubject.subscribe(response => {
-      this.foodSearchCriteria = response;
-    });
-    
     this.filterFormGroup.get("selectedDataTypes").valueChanges.subscribe(value => {
-      debugger
       this.foodSearchCriteria.selectedDataTypes = value;
+      this.usdaStoreService.updateFoodSearchCriteria(this.foodSearchCriteria);
     })
     this.filterFormGroup.get("pageSize").valueChanges.subscribe(value => {
-      debugger
       this.foodSearchCriteria.pageSize = value;
+      this.usdaStoreService.updateFoodSearchCriteria(this.foodSearchCriteria);
     })
     this.filterFormGroup.get("pageNumber").valueChanges.subscribe(value => {
-      debugger
       this.foodSearchCriteria.pageNumber = value;
+      this.usdaStoreService.updateFoodSearchCriteria(this.foodSearchCriteria);
     })
     this.filterFormGroup.get("selectedSortBy").valueChanges.subscribe(value => {
-      debugger
       this.foodSearchCriteria.selectedSortBy = value;
+      this.usdaStoreService.updateFoodSearchCriteria(this.foodSearchCriteria);
     })
     this.filterFormGroup.get("selectedSortOrder").valueChanges.subscribe(value => {
-      debugger
       this.foodSearchCriteria.selectedSortOrder = value;
+      this.usdaStoreService.updateFoodSearchCriteria(this.foodSearchCriteria);
     })
     this.filterFormGroup.get("brandOwner").valueChanges.subscribe(value => {
-      debugger
       this.foodSearchCriteria.brandOwner = value;
+      this.usdaStoreService.updateFoodSearchCriteria(this.foodSearchCriteria);
     })
     this.filterFormGroup.get("selectedTradeChannels").valueChanges.subscribe(value => {
-      debugger
       this.foodSearchCriteria.selectedTradeChannels = value;
+      this.usdaStoreService.updateFoodSearchCriteria(this.foodSearchCriteria);
     })
     this.filterFormGroup.get("startDate").valueChanges.subscribe(value => {
-      debugger
       this.foodSearchCriteria.startDate = value;
+      this.usdaStoreService.updateFoodSearchCriteria(this.foodSearchCriteria);
     })
     this.filterFormGroup.get("endDate").valueChanges.subscribe(value => {
-      debugger
       this.foodSearchCriteria.endDate = value;
+      this.usdaStoreService.updateFoodSearchCriteria(this.foodSearchCriteria);
     })
   }
 }

@@ -1,6 +1,6 @@
 import { Component,  OnInit } from '@angular/core';
 import { SearchResultModel } from 'src/app/modules/USDA/models/Search/SearchResultModel';
-import { FoodSearchCriteriaModel } from 'src/app/modules/USDA/models/Search/FoodSearchCriteriaModel';
+import { UsdaStoreService } from 'src/app/modules/USDA/ComponentStore/services/usda-store.service';
 import { UsdaSearchService } from 'src/app/modules/USDA/services/search/usda-search.service';
 
 @Component({
@@ -12,20 +12,22 @@ export class UsdaSearchComponent implements OnInit {
   nutrientsDisplayedColumns: string[] = ['name', 'unit', 'value', 'source'];
   foodInputsDisplayedColumns: string[] = ['id','amount','foodDescription','ingredientCode','ingredientDescription','ingredientWeight','portionCode','portionDescription','sequenceNumber','surveyFlag','unit'];
   
+  // selectors
   searchResult: SearchResultModel;
-  foodSearchCriteria: FoodSearchCriteriaModel;
+  searchResults$ = this.usdaStoreService.searchResults$.subscribe(res => {this.searchResult = res;});
 
-  constructor(private usdaSearchService: UsdaSearchService) {
+
+
+  // foods$ = this.usdaStoreService.foods$.subscribe(res => {return res;});
+  // currentFdcId$ = this.usdaStoreService.currentFdcId$.subscribe(res => {return res;});
+  // currentFood$ = this.usdaStoreService.currentFood$.subscribe(res => {return res;});
+  
+  constructor(
+    private usdaStoreService: UsdaStoreService,
+    private usdaSearchService: UsdaSearchService
+  ) {
   }
 
   ngOnInit() {
-    this.usdaSearchService.searchResultSubject.subscribe(response => {
-      debugger
-      this.searchResult = response;
-    });
-    this.usdaSearchService.foodSearchCriteriaSubject.subscribe(response => {
-      debugger
-      this.foodSearchCriteria = response;
-    });
   }
 }

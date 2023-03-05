@@ -1,6 +1,7 @@
 import { Component, Input, } from '@angular/core';
 import { FoodSearchCriteriaModel } from 'src/app/modules/USDA/models/Search/FoodSearchCriteriaModel';
 import { UsdaSearchService } from 'src/app/modules/USDA/services/search/usda-search.service';
+import { UsdaStoreService } from 'src/app/modules/USDA/ComponentStore/services/usda-store.service';
 
 @Component({
   selector: 'app-pagination',
@@ -8,24 +9,27 @@ import { UsdaSearchService } from 'src/app/modules/USDA/services/search/usda-sea
   styleUrls: ['./pagination.component.scss']
 })
 export class PaginationComponent {
-  foodSearchCriteria: FoodSearchCriteriaModel;
-  
+    // selectors
+    foodSearchCriteria: FoodSearchCriteriaModel;
+    foodSearchCriteria$ = this.usdaStoreService.foodSearchCriteria$.subscribe(res => {
+      debugger
+    this.foodSearchCriteria = res;
+  });
+
   @Input() totalHits: number;
   @Input() currentPage: number;
   @Input() totalPages: number;
 
-  constructor(private usdaSearchService: UsdaSearchService) { }
+  constructor(
+    private usdaSearchService: UsdaSearchService,
+    private usdaStoreService: UsdaStoreService
+  ) {
+
+    }
 
   ngOnInit() {
-    this.initSubscriptions()
   }
-
-  initSubscriptions() {
-    this.usdaSearchService.foodSearchCriteriaSubject.subscribe(response => {
-      this.foodSearchCriteria = response;
-    });
-  }
-    
+ 
   first() {
     this.foodSearchCriteria.pageNumber = 1;
     this.usdaSearchService.search(this.foodSearchCriteria);
