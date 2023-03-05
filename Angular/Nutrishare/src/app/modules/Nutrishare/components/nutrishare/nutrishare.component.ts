@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsdaSearchService } from 'src/app/modules/USDA/services/search/usda-search.service';
+import { UsdaStoreService } from 'src/app/modules/USDA/ComponentStore/services/usda-store.service';
 
 @Component({
   selector: 'app-nutrishare',
@@ -7,14 +7,12 @@ import { UsdaSearchService } from 'src/app/modules/USDA/services/search/usda-sea
   styleUrls: ['./nutrishare.component.scss']
 })
 export class NutrishareComponent implements OnInit {
-  searchFilterToggle: boolean;
+  toggleSearchFilter: boolean;
+  toggleSearchFilter$ = this.usdaStoreService.toggleSearchFilter$.subscribe(res => {this.toggleSearchFilter = res;});
 
-  constructor(private usdaSearchService: UsdaSearchService) { }
+  constructor(private usdaStoreService: UsdaStoreService) { }
 
   ngOnInit(): void {
-    this.usdaSearchService.searchFilterToggleSubject.subscribe(response => {
-      this.searchFilterToggle = response;
-    });
   }
 
 }

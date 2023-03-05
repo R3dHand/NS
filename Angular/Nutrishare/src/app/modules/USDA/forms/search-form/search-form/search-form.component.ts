@@ -2,7 +2,8 @@ import { Component} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { FoodSearchCriteriaModel } from '../../../models/Search/FoodSearchCriteriaModel';
 import { UsdaSearchService } from '../../../services/search/usda-search.service';
-
+import { HomeComponentStoreService} from 'src/app/ComponentStore/HomeComponentStore/home.store.service';
+import { UsdaStoreService } from '../../../ComponentStore/services/usda-store.service';
 @Component({
   selector: 'app-search-form',
   templateUrl: './search-form.component.html',
@@ -10,14 +11,24 @@ import { UsdaSearchService } from '../../../services/search/usda-search.service'
 })
 
 export class SearchFormComponent  {
-  searchFilterToggle: boolean;
+  toggleSearchFilter: boolean;
+  toggleSearchFilter$ = this.usdaStoreService.toggleSearchFilter$.subscribe(res => {this.toggleSearchFilter = res;});
+
+  
   foodSearchCriteria: FoodSearchCriteriaModel;
+  foodSearchCriteria$ = this.usdaStoreService.foodSearchCriteria$.subscribe(res => {
+    debugger
+    this.foodSearchCriteria = res;
+  });
+  
   searchFormGroup = new FormGroup({
-    //try taking this out of formGroup
     query: new FormControl<string>('')
   });
 
-  constructor(private usdaSearchService: UsdaSearchService) {
+  constructor(
+    private usdaSearchService: UsdaSearchService,
+    private usdaStoreService: UsdaStoreService
+  ) {
   }
 
   ngOnInit() {
@@ -25,22 +36,18 @@ export class SearchFormComponent  {
   }
 
   initSubscriptions() {
-    this.usdaSearchService.foodSearchCriteriaSubject.subscribe(response => {
-      this.foodSearchCriteria = response;
-    });
     this.searchFormGroup.get("query").valueChanges.subscribe(value => {
       this.foodSearchCriteria.query = value;
-    })
-    this.usdaSearchService.searchFilterToggleSubject.subscribe(value => {
-      this.searchFilterToggle = value;
+      this.usdaStoreService.updateFoodSearchCriteria(this.foodSearchCriteria)
     })
   }
   search() {
+    debugger
     this.usdaSearchService.search(this.foodSearchCriteria);
-    this.usdaSearchService.setSearchFilterToggle(true);
+    this.usdaStoreService.updateSearchFilterToggle(true);
   }
 
-  toggleSearchFilter() {
-    this.usdaSearchService.setSearchFilterToggle(!this.searchFilterToggle);
+  toggle() {
+    this.usdaStoreService.updateSearchFilterToggle(!this.toggleSearchFilter);
   }
 }
