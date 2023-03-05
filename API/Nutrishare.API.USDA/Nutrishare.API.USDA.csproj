@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Nutrishare.DTO\Nutrishare.DTO.csproj" />
     <ProjectReference Include="..\Nutrishare.USDA.DTO\Nutrishare.USDA.DTO.csproj" />
   </ItemGroup>
 

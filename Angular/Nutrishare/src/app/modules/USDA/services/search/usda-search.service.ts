@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { SearchResultModel } from '../../models/Search/SearchResultModel';
 import { FoodSearchCriteriaModel } from '../../models/Search/FoodSearchCriteriaModel';
 import { BehaviorSubject } from 'rxjs';
-import { query } from '@angular/animations';
+import { ApiResult } from 'src/app/shared/DTO/ApiResult/api-result.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +28,11 @@ export class UsdaSearchService {
 
   search(foodSearchCriteria: FoodSearchCriteriaModel){
     debugger
-    this.httpClient.post<SearchResultModel>(`${this.apiUrl}`, foodSearchCriteria).subscribe(response => {
-      this.searchResultSubject.next(response);
+    response: ApiResult;
+    this.httpClient.post<ApiResult>(`${this.apiUrl}`, foodSearchCriteria).subscribe(response => {
+      if (response.success) {
+        this.searchResultSubject.next(response.result);
+      }
     });
   }
 
