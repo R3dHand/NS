@@ -12,7 +12,6 @@ export class PaginationComponent {
     // selectors
     foodSearchCriteria: FoodSearchCriteriaModel;
     foodSearchCriteria$ = this.usdaStoreService.foodSearchCriteria$.subscribe(res => {
-      debugger
     this.foodSearchCriteria = res;
   });
 

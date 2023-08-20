@@ -17,7 +17,6 @@ export class SearchFilterComponent implements OnInit {
     // selectors
   foodSearchCriteria: FoodSearchCriteriaModel;
   foodSearchCriteria$ = this.usdaStoreService.foodSearchCriteria$.subscribe(res => {
-    debugger
     this.foodSearchCriteria = res;
   });
 
