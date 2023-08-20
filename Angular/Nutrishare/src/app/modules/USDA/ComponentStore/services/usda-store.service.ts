@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ComponentStore } from '@ngrx/component-store';
 import { UsdaState } from 'src/app/modules/USDA/ComponentStore/interfaces/usda-state';
-import { SearchResultFoodModel } from 'src/app/modules/USDA/models/Search/SearchResultFoodModel';
 import { SearchResultModel } from '../../models/Search/SearchResultModel';
 import { FoodSearchCriteriaModel } from '../../models/Search/FoodSearchCriteriaModel';
+
 export const initialState = {
   foodSearchCriteria: {query: ''},
   toggleSearchFilter: true
@@ -46,7 +46,6 @@ export class UsdaStoreService extends ComponentStore<UsdaState>{
 
 
   updateSearchFilterToggle(toggleSearchFilter: boolean){
-    debugger
     this.patchState({
       toggleSearchFilter: toggleSearchFilter
     });

@@ -2,7 +2,7 @@ import { Component} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { FoodSearchCriteriaModel } from '../../../models/Search/FoodSearchCriteriaModel';
 import { UsdaSearchService } from '../../../services/search/usda-search.service';
-import { HomeComponentStoreService} from 'src/app/ComponentStore/HomeComponentStore/home.store.service';
+import { HomeComponentStoreService} from 'src/app/ComponentStore/HomeComponentStore/services/home.store.service';
 import { UsdaStoreService } from '../../../ComponentStore/services/usda-store.service';
 @Component({
   selector: 'app-search-form',
@@ -17,7 +17,6 @@ export class SearchFormComponent  {
   
   foodSearchCriteria: FoodSearchCriteriaModel;
   foodSearchCriteria$ = this.usdaStoreService.foodSearchCriteria$.subscribe(res => {
-    debugger
     this.foodSearchCriteria = res;
   });
   
@@ -42,7 +41,6 @@ export class SearchFormComponent  {
     })
   }
   search() {
-    debugger
     this.usdaSearchService.search(this.foodSearchCriteria);
     this.usdaStoreService.updateSearchFilterToggle(true);
   }
